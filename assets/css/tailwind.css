@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+  .custom-bg {
+    background-image: linear-gradient(65deg, #232340 25%, transparent 60%), linear-gradient(to bottom, #00000064, transparent 40%), linear-gradient(60deg, #00000064, transparent), url(../img/home-jumbotron-1.jpg);
+  }
+}
