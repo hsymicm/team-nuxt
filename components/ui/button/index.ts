@@ -11,10 +11,10 @@ export const buttonVariants = cva(
         destructive:
           'bg-red-500 text-white hover:bg-red-500/90 dark:bg-red-900 dark:text-indigo-50 dark:hover:bg-red-900/90',
         outline:
-          'border border-slate-200 bg-white text-slate-800 hover:bg-indigo-100 hover:text-slate-800 dark:border-indigo-800 dark:bg-indigo-950 dark:hover:bg-indigo-800 dark:hover:text-indigo-50',
+          'border border-slate-200 bg-white text-primary-text hover:bg-indigo-100 hover:text-primary-text dark:border-indigo-800 dark:bg-indigo-950 dark:hover:bg-indigo-800 dark:hover:text-indigo-50',
         secondary:
-          'bg-indigo-100 text-slate-800 hover:bg-indigo-100/80 dark:bg-indigo-800 dark:text-indigo-50 dark:hover:bg-indigo-800/80',
-        ghost: 'text-slate-800 hover:bg-indigo-100 hover:text-slate-800 dark:hover:bg-indigo-800 dark:hover:text-indigo-50',
+          'bg-indigo-100 text-primary-text hover:bg-indigo-100/80 dark:bg-indigo-800 dark:text-indigo-50 dark:hover:bg-indigo-800/80',
+        ghost: 'text-primary-text hover:bg-indigo-100 hover:text-primary-text dark:hover:bg-indigo-800 dark:hover:text-indigo-50',
         link: 'text-indigo-500 underline-offset-4 hover:underline dark:text-indigo-50',
       },
       size: {
