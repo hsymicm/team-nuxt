@@ -5,9 +5,9 @@ import { ArrowRight } from "lucide-vue-next"
 
 <template>
   <footer class="bg-[#232340] px-[10%] pt-16 pb-12 mt-16">
-    <div class="grid lg:grid-cols-5 gap-4">
+    <div class="grid lg:grid-cols-5 gap-8">
       <section>
-        <h2 class="text-5xl text-white font-semibold mb-4">team<span class="text-indigo-500">.</span></h2>
+        <h2 @click="navigateTo('/')" class="cursor-pointer text-5xl text-white font-semibold mb-4">team<span class="text-indigo-500">.</span></h2>
         <h3 class="text-sm text-white font-light">Collaboration platform for modern team</h3>
       </section>
       <section>
@@ -39,7 +39,7 @@ import { ArrowRight } from "lucide-vue-next"
         <h4 class="text-2xl text-indigo-500 mb-4">Contact Us</h4>
         <p class="text-sm text-white font-light mb-4">Subscribe to our newseller</p>
         <div class="relative items-center w-full max-w-xs">
-          <Input type="email" placeholder="janedoe@example.com" class="text-white border-0 bg-white/20 text-sm font-light placeholder:text-white" />
+          <Input type="email" placeholder="Email" class="text-white border-0 bg-white/20 text-sm font-light placeholder:text-white" />
           <span class="absolute end-0 inset-y-0 flex items-center justify-center px-2">
             <ArrowRight class="size-[18px] text-white" />
           </span>
