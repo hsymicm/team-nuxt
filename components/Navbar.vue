@@ -20,6 +20,10 @@ onMounted(() => {
     }
   }
 
+  if (window.scrollY > 50) {
+    isScrolled.value = true
+  }
+
   window.addEventListener('scroll', handleScroll)
 
   onUnmounted(() => {
@@ -31,13 +35,13 @@ onMounted(() => {
 
 <template>
   <header :class='cn(
-    variant === "light" ? "bg-white sticky" : "bg-transparent fixed",
+    variant === "light" ? "bg-white" : "bg-transparent",
     isScrolled && variant !== "light" && "bg-white",
-    isScrolled ? "py-4 shadow-lg" : "py-12 shadow-none",
-    "px-[10%] flex justify-between w-full z-50 shadow-primary-text/5 transition-all"
+    isScrolled ? "py-4 shadow-lg" : "py-10 shadow-none",
+    "fixed px-[10%] flex justify-between w-full z-50 shadow-primary-text/5 transition-all"
   )'>
-    <h2 :class='cn(
-      "font-semibold mb-1 transition-all",
+    <h2 @click="navigateTo('/')" :class='cn(
+      "font-semibold mb-1 cursor-pointer transition-all",
       isScrolled ? "text-4xl" : "text-5xl",
       isScrolled || variant === "light" ? "text-primary-text" : "text-white"
     )'>team<span class="text-indigo-500">.</span></h2>
@@ -50,7 +54,7 @@ onMounted(() => {
         <Navlink :variant="isScrolled || variant === 'light' ? 'light' : 'dark'">Login</Navlink>
       </ul>
       <Button size="lg" class="w-36" as-child>
-        <NuxtLink to="/">Get Access</NuxtLink>
+        <NuxtLink to="/">Get access</NuxtLink>
       </Button>
     </nav>
   </header>
