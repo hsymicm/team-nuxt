@@ -8,6 +8,9 @@ useSeoMeta({
   ogDescription: 'All-in-one place for remote team to chat, collaborate, and track project progress.',
 })
 
+const { data, status, error } = useFetch("/api/testimonial")
+const testimonials = data.value?.data
+
 </script>
 
 <template>
@@ -25,7 +28,7 @@ useSeoMeta({
             <ArrowRight class="size-5 text-indigo-500" />
           </span>
         </div>
-        <Button class="w-48">Get Early Access</Button>
+        <Button class="w-48">Get early access</Button>
       </div>
     </section>
     <section class="flex flex-row-reverse items-center gap-12 py-20">
@@ -87,7 +90,7 @@ useSeoMeta({
     </section>
     <section class="flex flex-col items-center px-[10%] py-32">
       <h2 class="text-5xl font-bold text-primary-text mb-24">What people say about Team</h2>
-      <Testimonial />
+      <Testimonial v-if="status === 'success'" :data="testimonials" />
     </section>
   </main>
 </template>
