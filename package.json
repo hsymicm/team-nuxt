@@ -12,6 +12,9 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@node-rs/argon2": "^2.0.0",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
     "@vueuse/core": "^11.1.0",
     "better-sqlite3": "^9.6.0",
     "drizzle-orm": "0.35.2",

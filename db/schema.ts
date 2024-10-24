@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm"
+import { relations, sql, type InferSelectModel } from "drizzle-orm"
 import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core"
 
 export const users = sqliteTable("users", {
@@ -37,3 +37,18 @@ export const testimonials = sqliteTable("testimonials", {
   review: text(),
   profileUrl: text("profile_url"),
 })
+
+export const sessions = sqliteTable("session", {
+	id: text("id").primaryKey(),
+	userId: integer("user_id")
+		.notNull()
+		.references(() => users.id),
+	expiresAt: integer("expires_at", {
+		mode: "timestamp"
+	}).notNull()
+});
+
+export type Sessions = InferSelectModel<typeof sessions>
+export type Users = InferSelectModel<typeof users>
+export type Posts = InferSelectModel<typeof posts>
+export type Testimonials = InferSelectModel<typeof testimonials>
