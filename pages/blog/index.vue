@@ -60,7 +60,7 @@ const updatePage = (newPage: number) => {
         <CardContent class="flex flex-col justify-between p-0">
           <section>
             <AspectRatio :ratio="16 / 10">
-              <img class="object-cover w-full h-full" src="../../assets/img/74d274e20e85a97e6c4b923e0b9fa71a.jpg"
+              <img class="object-cover w-full h-full" src="../../uploads/74d274e20e85a97e6c4b923e0b9fa71a.jpg"
                 alt="image post">
             </AspectRatio>
             <div class="p-4">
