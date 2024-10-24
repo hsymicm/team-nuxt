@@ -16,7 +16,7 @@ const testimonials = data.value?.data
 <template>
   <main class="min-h-screen">
     <section
-      class="custom-bg bg-[#232340] bg-cover bg-[center_20%] px-[10%] py-36 h-[95vh] flex flex-col justify-center">
+      class="jumbotron-bg bg-[#232340] bg-cover bg-[center_20%] px-[10%] py-36 h-[95vh] flex flex-col justify-center">
       <h1 class="max-w-xl text-balance text-5xl text-white leading-tight font-bold mb-5">Instant collaboration for
         remote teams</h1>
       <h3 class="max-w-xl text-balance text-lg font-light text-white mb-14">All-in-one place for remote team to chat,
