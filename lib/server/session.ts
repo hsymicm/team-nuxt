@@ -6,8 +6,7 @@ import {
   encodeHexLowerCase,
 } from "@oslojs/encoding"
 import { sha256 } from "@oslojs/crypto/sha2"
-
-const day = 1000 * 60 * 60 * 24
+import type { H3Event } from "h3" 
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20)
@@ -25,7 +24,7 @@ export async function createSession(
   const session: Sessions = {
     id: sessionId,
     userId,
-    expiresAt: new Date(Date.now() + day * 7), // 7 Days Expiration
+    expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 Days Expiration
   }
 
   await db.insert(sessions).values(session)
@@ -53,8 +52,8 @@ export async function validateSessionToken(
     return { session: null, user: null }
   }
 
-  if (Date.now() >= session.expiresAt.getTime() - day * 3.5) {
-    session.expiresAt = new Date(Date.now() + day * 7)
+  if (Date.now() >= session.expiresAt.getTime() - 1000 * 60 * 60 * 24 * 3.5) {
+    session.expiresAt = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7)
     await db
       .update(sessions)
       .set({
@@ -67,6 +66,20 @@ export async function validateSessionToken(
 
 export async function invalidateSession(sessionId: string): Promise<void> {
   await db.delete(sessions).where(eq(sessions.id, sessionId))
+}
+
+export function setSessionTokenCookie(event: H3Event, token: string, expiresAt: Date): void {
+  const isProd = process.env.NODE_ENV === "production"
+
+  const cookieString = `session=${token}; HttpOnly; SameSite=Lax; Expires=${expiresAt.toUTCString()}; Path=/; ${isProd ? "Secure" : ""}`
+  setHeader(event, "Set-Cookie", cookieString)
+}
+
+export function deleteSessionTokenCookie(event: H3Event): void {
+  const isProd = process.env.NODE_ENV === "production"
+
+	const cookieString = `session=; HttpOnly; SameSite=Lax; Max-Age=0; Path=/; ${isProd ? "Secure" : ""}`
+  setHeader(event, "Set-Cookie", cookieString)
 }
 
 export type SessionValidationResult =
