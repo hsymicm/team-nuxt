@@ -51,7 +51,7 @@ onMounted(() => {
         <Navlink :variant="isScrolled || variant === 'light' ? 'light' : 'dark'" to="/product">Product</Navlink>
         <Navlink :variant="isScrolled || variant === 'light' ? 'light' : 'dark'" to="/blog">Blog</Navlink>
         <Navlink :variant="isScrolled || variant === 'light' ? 'light' : 'dark'" to="/support">Support</Navlink>
-        <Navlink :variant="isScrolled || variant === 'light' ? 'light' : 'dark'">Login</Navlink>
+        <Navlink :variant="isScrolled || variant === 'light' ? 'light' : 'dark'" to="/admin/login">Login</Navlink>
       </ul>
       <Button size="lg" class="w-36" as-child>
         <NuxtLink to="/">Get access</NuxtLink>
