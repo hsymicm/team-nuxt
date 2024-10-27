@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxtjs/google-fonts',
     '@nuxt/image',
+    '@formkit/auto-animate'
   ],
   googleFonts: {
     families: {
@@ -35,4 +36,9 @@ export default defineNuxtConfig({
   routeRules: {
     "/**": { ssr: true }
   },
+  vite: {
+    optimizeDeps: {
+      // exclude: ['@node-rs/argon2-wasm32-wasi']
+    }
+  }
 })
