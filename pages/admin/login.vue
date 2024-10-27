@@ -1,6 +1,5 @@
 <template>
   <main class="bg-indigo-50 min-h-screen grid place-items-center px-[14%] py-16">
-
     <Card class="m-1 overflow-hidden max-w-2xl w-full">
       <CardContent class="flex p-0">
         <section class="admin-bg bg-[90%_20%] flex flex-col justify-end px-8 py-12 w-1/2 bg-cover">
@@ -10,25 +9,20 @@
         </section>
         <section class="w-1/2 px-8 py-12">
           <h2 class="text-xl font-bold text-primary-text mb-6">Login Panel</h2>
-          <form class="flex flex-col gap-4" @submit="onSubmit">
-            <FormField v-slot="{ componentField }" name="email">
-              <FormItem>
-                <FormLabel class="text-primary-text">Email</FormLabel>
-                <FormControl>
-                  <Input type="email" placeholder="johndoe@example.com" v-bind="componentField" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            </FormField>
-            <FormField v-slot="{ componentField }" name="password">
-              <FormItem>
-                <FormLabel class="text-primary-text">Password</FormLabel>
-                <FormControl>
-                  <Input type="password" v-bind="componentField" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            </FormField>
+          <form class="flex flex-col gap-6" @submit="onSubmit">
+            <FormInputField 
+              name="email" 
+              type="email" 
+              label="Email" 
+              placeholder="johndoe@example.com" 
+              is-required 
+            />
+            <FormInputField 
+              name="password" 
+              type="password" 
+              label="Password" 
+              is-required 
+            />
             <div class="mt-4 -mb-2 flex flex-col gap-2">
               <Button type="submit">
                 Login
@@ -45,22 +39,12 @@
 </template>
 
 <script setup lang="ts">
-import { MoveLeft } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+import { FormInputField } from '@/components/ui/form'
 import { toast } from '@/components/ui/toast'
 
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
-import { h } from 'vue'
 import * as z from 'zod'
 
 definePageMeta({
@@ -77,8 +61,18 @@ const formSchema = toTypedSchema(z.object({
   password: z.string(),
 }))
 
-const { handleSubmit } = useForm({
+const { handleSubmit, setFieldValue } = useForm({
   validationSchema: formSchema,
+})
+
+const route = useRoute()
+
+onMounted(() => {
+  const queryEmail = route.query._email as string | undefined;
+
+  if (queryEmail) {
+    setFieldValue('email', queryEmail);
+  }
 })
 
 const onSubmit = handleSubmit((values) => {
