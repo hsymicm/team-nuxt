@@ -9,6 +9,10 @@ export function verifyUsernameInput(username: string): boolean {
   )
 }
 
+export function verifyPasswordInput(password: string): boolean {
+  return password.length >= 6
+}
+
 export async function checkExistingUser(
   username: string,
   email: string
@@ -25,21 +29,6 @@ export async function createUser(
   password: string
 ): Promise<User> {
   try {
-    if (!verifyUsernameInput(username)) {
-      throw new Error("Invalid username format")
-    }
-
-    const existingUser = await checkExistingUser(username, email)
-
-    if (existingUser) {
-      if (existingUser.username === username) {
-        throw new Error("Username already exists")
-      }
-      if (existingUser.email === email) {
-        throw new Error("Email already exists")
-      }
-    }
-
     const passwordHash = await hashPassword(password)
 
     const row = await db
