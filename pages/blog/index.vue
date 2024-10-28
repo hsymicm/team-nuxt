@@ -11,9 +11,14 @@ useSeoMeta({
 const route = useRoute()
 
 const currentPage = ref(Number(route.query.page) || 1)
-
-const { data, refresh } = await useAsyncData("post-" + currentPage.value.toString(), () =>
-  $fetch("/api/post", { query: { page: currentPage.value } }),)
+  
+const { data, status, refresh } = await useAsyncData(
+  "post-" + currentPage.value.toString(),
+  () => $fetch(
+    "/api/post",
+    { query: { page: currentPage.value } }
+  )
+)
 
 const posts = computed(() => data.value?.data || {});
 const meta = computed(() => data.value?.meta || {});
@@ -21,8 +26,8 @@ const meta = computed(() => data.value?.meta || {});
 const updatePage = (newPage: number) => {
   if (currentPage.value === newPage) return
   currentPage.value = newPage
-  navigateTo({ query: { ...route.query, page: currentPage.value }, replace: true })
   refresh()
+  navigateTo({ query: { ...route.query, page: currentPage.value }, replace: true })
   window.scrollTo(0, 0)
 };
 
@@ -34,7 +39,7 @@ const updatePage = (newPage: number) => {
       <h1 class="text-5xl font-bold text-primary-text mb-6">Blog</h1>
       <h3 class="text-primary-text">Open-source threaded team chat that helps teams stay productive and focused.</h3>
     </section>
-    <!-- <div v-if="status === 'pending'" class="grid grid-cols-3 gap-x-4 gap-y-8">
+    <div v-if="status === 'pending'" class="grid grid-cols-3 gap-x-4 gap-y-8">
       <Card v-for="(_, index) in 3" :key="index" class="m-1 border-gray-200 overflow-hidden">
         <CardContent class="flex flex-col p-0">
           <AspectRatio :ratio="16 / 10">
@@ -54,8 +59,8 @@ const updatePage = (newPage: number) => {
           </div>
         </CardContent>
       </Card> 
-    </div>   -->
-    <div class="grid grid-cols-3 gap-x-4 gap-y-8">
+    </div>  
+    <div v-if="status === 'success' && posts.length > 0" class="grid grid-cols-3 gap-x-4 gap-y-8">
       <Card v-for="post in posts" :key="post.id" class="m-1 overflow-hidden cursor-pointer h-fit">
         <CardContent class="flex flex-col justify-between p-0">
           <section>
