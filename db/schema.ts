@@ -3,11 +3,11 @@ import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core"
 
 export const users = sqliteTable("users", {
 	id: integer().primaryKey({ autoIncrement: true }).notNull(),
-	username: text().notNull(),
-	name: text().notNull(),
-	email: text().notNull(),
-	password: text().notNull(),
-	profile: text()
+	username: text(),
+	name: text(),
+	email: text(),
+	password: text(),
+	profile: text(),
 })
 
 export const usersRelations = relations(users, ({ many }) => ({
