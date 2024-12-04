@@ -2,7 +2,41 @@ import { db } from "@/db"
 import { posts, users } from "@/db/schema"
 import { eq } from "drizzle-orm"
 
-export default defineEventHandler(async (event) => {
+type Posts = {
+  id: number
+  author: string | null
+  postedAt: string
+  title: string | null
+  imageUrl: string | null
+  description: string | null
+}
+
+type Meta = {
+  page: number
+  limit: number
+  totalPages: number
+  totalPosts: number
+}
+
+type SuccessResponse = {
+  status: "success"
+  statusCode: number
+  message: string
+  data: Posts[]
+  meta: Meta
+}
+
+type ErrorResponse = {
+  status: "error"
+  statusCode: number
+  errorType: string
+  message: string
+  details: null
+}
+
+type ApiResponse = SuccessResponse | ErrorResponse
+
+export default defineEventHandler(async (event): Promise<ApiResponse> => {
   try {
     const page = Number(getQuery(event).page) || 1
     const limit = 6;
@@ -27,6 +61,7 @@ export default defineEventHandler(async (event) => {
 
     return {
       status: "success",
+      statusCode: 201,
       message: "Posts data fetched successfully",
       data,
       meta: {
@@ -41,12 +76,10 @@ export default defineEventHandler(async (event) => {
 
     return {
       status: "error",
-      message: "Internal Server Error",
-      error: {
-        code: 500,
-        type: "ServerError",
-        details: "An unexpected error occurred on the server."
-      }
+      statusCode: 500,
+      errorType: "server_error",
+      message: "An unexpected error occurred. Please try again later.",
+      details: null,
     }
   }
 
